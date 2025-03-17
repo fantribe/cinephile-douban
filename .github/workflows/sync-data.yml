@@ -39,32 +39,33 @@ jobs:
       #     git config --global user.name 'github-actions[bot]'
       #     git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
 
-      - name: List script
-        run: |
-          pushd ${{ env.SRC_NAME }} && 
-          ls -al && ls -l scripts-douban/run-daily.sh &&
-          popd
-
       - name: Run script top
-        if: github.event.schedule == '5 5 * * *'
+        # if: github.event.schedule == '5 5 * * *'
         run: |
           pushd ${{ env.SRC_NAME }} && 
           bash scripts-douban/run-daily.sh data-top &&
           popd
 
       - name: Run script page
-        if: github.event.schedule == '10 10 * * *'
+        # if: github.event.schedule == '10 10 * * *'
         run: |
           pushd ${{ env.SRC_NAME }} && 
           bash scripts-douban/run-daily.sh data-pages &&
           popd
 
       - name: Run script hot
-        if: github.event.schedule == '8 18 * * *'
+        # if: github.event.schedule == '8 18 * * *'
         run: |
           pushd ${{ env.SRC_NAME }} && 
           bash scripts-douban/run-daily.sh data-hot &&
           popd
+
+      - name: List script
+        run: |
+          pushd ${{ env.SRC_NAME }} && 
+          ls -al && ls -l scripts-douban/run-daily.sh &&
+          popd
+          echo "json files = $(ls **/*.json | wc -l)"
 
       - name: Git auto commit
         uses: stefanzweifel/git-auto-commit-action@v5
