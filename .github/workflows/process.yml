@@ -5,7 +5,7 @@ on:
     branches:
       - main
   schedule:
-    - cron: "0 1,13 * * *"
+    - cron: "0 1,9 * * *"
     - cron: "0 4 * * *"
     - cron: "0 6 * * *"
 
@@ -40,7 +40,7 @@ jobs:
       #     git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
 
       - name: Run script top
-        # if: github.event.schedule == '0 1,13 * * *'
+        # if: github.event.schedule == '0 1,9 * * *'
         run: |
           pushd ${{ env.SRC_NAME }} && 
           bash scripts/run-douban.sh data-top &&
