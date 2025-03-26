@@ -1,9 +1,9 @@
 name: Update douban data
 
 on:
-  push:
-    branches:
-      - main
+  # push:
+  #   branches:
+  #     - main
   schedule:
     - cron: "0 1,9 * * *"
     - cron: "0 4 * * *"
@@ -39,13 +39,6 @@ jobs:
       #     git config --global user.name 'github-actions[bot]'
       #     git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
 
-      - name: Run script top
-        # if: github.event.schedule == '0 1,9 * * *'
-        run: |
-          pushd ${{ env.SRC_NAME }} && 
-          bash scripts/run-douban.sh data-top &&
-          popd
-
       - name: Run script page
         if: github.event.schedule == '0 4 * * *'
         run: |
@@ -58,6 +51,13 @@ jobs:
         run: |
           pushd ${{ env.SRC_NAME }} && 
           bash scripts/run-douban.sh data-hot &&
+          popd
+
+      - name: Run script top
+        # if: github.event.schedule == '0 1,9 * * *'
+        run: |
+          pushd ${{ env.SRC_NAME }} && 
+          bash scripts/run-douban.sh data-top &&
           popd
 
       - name: Git auto commit
