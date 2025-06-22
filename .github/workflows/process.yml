@@ -8,6 +8,7 @@ on:
     - cron: "0 1,9 * * *"
     - cron: "0 4 * * *"
     - cron: "0 6 * * *"
+    - cron: "0 2 * * *"
 
 jobs:
   process:
@@ -51,6 +52,13 @@ jobs:
         run: |
           pushd ${{ env.SRC_NAME }} && 
           bash scripts/run-douban.sh data-hot &&
+          popd
+
+      - name: Run script rank
+        if: github.event.schedule == '0 2 * * *'
+        run: |
+          pushd ${{ env.SRC_NAME }} && 
+          bash scripts/run-douban.sh data-rank &&
           popd
 
       - name: Run script top
