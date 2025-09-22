@@ -12,9 +12,7 @@
 .trash/
 temp/
 trash/
-
-# temp.*
-# .github/
+source/
 
 *.csv
 *.tsv
